@@ -8,7 +8,9 @@ public class Bot extends Player {
     private BotPlayingStrategy botPlayingStrategy;
 
     public Bot(String name, char aSymbol, BotDifficultyLevel difficultyLevel) {
-
+        super(name, aSymbol, PlayerType.BOT);
+        this.botDifficultyLevel = difficultyLevel;
+        this.botPlayingStrategy = BotPlayingStrategyFactory.getStrategyForDifficultyLevel(difficultyLevel);
     }
 
     public BotDifficultyLevel getBotDifficultyLevel() {
@@ -21,6 +23,6 @@ public class Bot extends Player {
 
     @Override
     public Move decideMove(Board board) {
-
+        return botPlayingStrategy.decideMove(this, board);
     }
 }

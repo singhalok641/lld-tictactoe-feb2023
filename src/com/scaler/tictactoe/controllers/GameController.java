@@ -13,6 +13,16 @@ public class GameController {
     }
 
     public Game createGame(int dimension, List<Player> players) {
+        try{
+            return Game.getBuilder()
+                    .setDimension(dimension)
+                    .setPlayers(players)
+                    .build();
+        }
+        catch (Exception e){
+            // You can add your proper message for the Client here
+            System.out.println(e);
+        }
         return null;
     }
 
