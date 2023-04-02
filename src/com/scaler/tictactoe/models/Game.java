@@ -39,7 +39,23 @@ public class Game {
         return new Builder();
     }
 
-    public void undo() {}
+    public void undo() {
+        if(!moves.isEmpty()) {
+            Move lastMove = moves.get(moves.size()-1);
+
+            moves.remove(moves.size()-1);
+            gameWinningStrategy.removeMoveFromCell(lastMove.getCell());
+
+            nextPlayerIndex--;
+            if(nextPlayerIndex < 0) nextPlayerIndex = players.size()-1;
+
+            int row = lastMove.getCell().getRow();
+            int col = lastMove.getCell().getCol();
+            board.getBoard().get(row).get(col).setCellState(CellState.EMPTY);
+            board.getBoard().get(row).get(col).setPlayer(null);
+            System.out.println("Performed an undo on " + lastMove.getPlayer().getName() + "'s move!");
+        }
+    }
 
     public void makeNextMove() {
         Player toMovePlayer = players.get(nextPlayerIndex);
