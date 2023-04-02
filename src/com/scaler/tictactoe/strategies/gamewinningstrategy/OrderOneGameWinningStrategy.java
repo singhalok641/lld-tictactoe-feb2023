@@ -86,4 +86,34 @@ public class OrderOneGameWinningStrategy implements GameWinningStrategy {
 
         return false;
     }
+
+    public void removeMoveFromCell(Cell cell) {
+        char symbol = cell.getPlayer().getSymbol();
+        int row = cell.getRow();
+        int col = cell.getCol();
+
+        if(rowSymbolCounts.get(row).containsKey(symbol)) {
+            rowSymbolCounts.get(row).put(
+                    symbol, rowSymbolCounts.get(row).get(symbol) - 1
+            );
+        }
+
+        if(colSymbolCounts.get(col).containsKey(symbol)) {
+            colSymbolCounts.get(col).put(
+                    symbol, colSymbolCounts.get(col).get(symbol) - 1
+            );
+        }
+
+        if(topLeftDiagSymbolCounts.containsKey(symbol)) {
+            topLeftDiagSymbolCounts.put(
+                    symbol, topLeftDiagSymbolCounts.get(symbol) - 1
+            );
+        }
+
+        if(topRightDiagSymbolCounts.containsKey(symbol)) {
+            topRightDiagSymbolCounts.put(
+                    symbol, topRightDiagSymbolCounts.get(symbol) - 1
+            );
+        }
+    }
 }
